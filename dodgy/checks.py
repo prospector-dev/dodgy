@@ -2,14 +2,10 @@ import re
 
 
 STRING_VALS = (
-    ('aws_access_key',
-     'Amazon Web Services access key',
-     re.compile(r'(\'|")[A-Z0-9]{20}(\'|")')
-    ),
     ('aws_secret_key',
      'Amazon Web Services secret key',
      re.compile(r'(\'|")[A-Za-z0-9\\\+]{40}(\'|")')
-    )
+    ),
 )
 
 LINE_VALS = (
@@ -22,11 +18,11 @@ LINE_VALS = (
 VAR_NAMES = (
     ('password',
      'Possible hardcoded password',
-     re.compile(r'(\b|[A-Z0-9_]*_)PASSWORD(_[A-Z0-9_]*|\b)\s*=\s(\'|")')
+     re.compile(r'(\b|[A-Z0-9_]*_)PASSWORD(_[A-Z0-9_]*|\b)\s*=\s(\'|")[^\'"]+(\'|")')
     ),
     ('secret',
      'Possible hardcoded secret key',
-     re.compile(r'(\b|[A-Z0-9_]*_)SECRET(_[A-Z0-9_]*|\b)\s*=\s(\'|")')
+     re.compile(r'(\b|[A-Z0-9_]*_)SECRET(_[A-Z0-9_]*|\b)\s*=\s(\'|")[^\'"]+(\'|")')
     ),
 )
 

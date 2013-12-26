@@ -10,6 +10,10 @@ class TestChecks(TestCase):
         return check_file(filepath)
 
     def _check_messages(self, messages, expected_keys):
+        if expected_keys == (None,):
+            self.assertTrue(len(messages) == 0)
+            return
+
         for key in expected_keys:
             for message in messages:
                 if key == message[1]:
@@ -22,7 +26,7 @@ class TestChecks(TestCase):
         self._check_messages(messages, expected_keys)
 
     def test_amazon_keys(self):
-        self._do_test('amazon.py', 'aws_secret_key', 'aws_access_key')
+        self._do_test('amazon.py', 'aws_secret_key')
 
     def test_diffs(self):
         self._do_test('diff.py', 'diff')
@@ -31,8 +35,10 @@ class TestChecks(TestCase):
         self._do_test('passwords1.py', 'password')
         self._do_test('passwords2.py', 'password')
         self._do_test('passwords3.py', 'password')
+        self._do_test('passwords4.py', None)
 
     def test_secret_varnames(self):
         self._do_test('secrets1.py', 'secret')
         self._do_test('secrets2.py', 'secret')
         self._do_test('secrets3.py', 'secret')
+        self._do_test('secrets4.py', None)
