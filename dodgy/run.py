@@ -5,8 +5,8 @@ import json
 from dodgy.checks import check_file
 
 
-IGNORE_PATHS = [re.compile(patt % {'sep': os.path.pathsep}) for patt in (
-    r'(^|%(sep)s)\.',
+IGNORE_PATHS = [re.compile(patt % {'sep': os.path.sep}) for patt in (
+    r'(^|%(sep)s)\.[^\.]',   # ignores any files or directories starting with '.'
     r'^tests?%(sep)s?',
     r'%(sep)stests?(%(sep)s|$)',
 )]
@@ -20,12 +20,12 @@ def list_files(start_path):
     return filepaths
 
 
-def run():
+def run_checks(directory):
     warnings = []
 
-    filepaths = list_files(os.getcwd())
+    filepaths = list_files(directory)
     for filepath in filepaths:
-        relpath = os.path.relpath(filepath, os.getcwd())
+        relpath = os.path.relpath(filepath, directory)
         if any([ignore.search(relpath) for ignore in IGNORE_PATHS]):
             continue
 
@@ -42,6 +42,11 @@ def run():
                 'message': msg_parts[2]
             })
 
+    return warnings
+
+
+def run():
+    warnings = run_checks(os.getcwd())
     print json.dumps({'warnings': warnings}, indent=2)
 
 
