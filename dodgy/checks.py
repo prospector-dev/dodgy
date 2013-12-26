@@ -22,11 +22,11 @@ LINE_VALS = (
 VAR_NAMES = (
     ('password',
      'Possible hardcoded password',
-     re.compile(r'(\b|_)PASSWORD(_|\b)')
+     re.compile(r'(\b|[A-Z0-9_]*_)PASSWORD(_[A-Z0-9_]*|\b)\s*=\s(\'|")')
     ),
     ('secret',
      'Possible hardcoded secret key',
-     re.compile(r'(\b|_)SECRET(_|\b)')
+     re.compile(r'(\b|[A-Z0-9_]*_)SECRET(_[A-Z0-9_]*|\b)\s*=\s(\'|")')
     ),
 )
 
