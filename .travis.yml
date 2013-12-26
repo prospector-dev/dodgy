@@ -6,6 +6,6 @@ install:
   - "pip install --use-mirrors nose coverage coveralls"
   - "pip install --use-mirrors --editable ."
 script:
-  nosetests -s --with-coverage --cover-inclusive --cover-package=dodgy
+  nosetests dodgy -s --with-coverage --cover-inclusive --cover-package=dodgy
 after_success:
   coveralls
