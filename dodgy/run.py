@@ -5,9 +5,11 @@ import json
 from dodgy.checks import check_file
 
 
-IGNORE_PATHS = map(re.compile, (
-    r'(^|%s)\.' % os.path.pathsep,
-))
+IGNORE_PATHS = [re.compile(r % {'sep': os.path.pathsep}) for r in (
+    r'(^|%(sep)s)\.',
+    r'^tests?%(sep)s?',
+    r'%(sep)stests?(%(sep)s|$)',
+)]
 
 
 def list_files(start_path):
