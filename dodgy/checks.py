@@ -44,7 +44,12 @@ def check_line(line, check_list):
     return messages
 
 
-def check_file(file_contents):
+def check_file(filepath):
+    with open(filepath) as f:
+        return check_file_contents(f.read())
+
+
+def check_file_contents(file_contents):
     messages = []
 
     for line_number0, line in enumerate(file_contents.split('\n')):

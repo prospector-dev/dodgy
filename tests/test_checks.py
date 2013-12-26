@@ -7,9 +7,7 @@ class TestChecks(TestCase):
 
     def _run_checks(self, file_name):
         filepath = os.path.join(os.path.dirname(__file__), 'testdata', file_name)
-        with open(filepath) as f:
-            file_contents = f.read()
-        return check_file(file_contents)
+        return check_file(filepath)
 
     def _check_messages(self, messages, expected_keys):
         for key in expected_keys:
