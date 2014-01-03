@@ -31,7 +31,7 @@ def run_checks(directory):
 
         # this is a naive check to skip binary files, it's probably okay for now
         mimetype = mimetypes.guess_type(filepath)
-        if mimetype == (None, None) or not mimetype[0].startswith('text/'):
+        if mimetype[0] is None or not mimetype[0].startswith('text/'):
             continue
 
         for msg_parts in check_file(filepath):
