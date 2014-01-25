@@ -20,13 +20,17 @@ def list_files(start_path):
     return filepaths
 
 
-def run_checks(directory):
+def run_checks(directory, ignore_paths=None):
     warnings = []
+
+    ignore_paths = ignore_paths or []
+    ignore_paths = [re.compile(patt) for patt in ignore_paths]
+    ignore_paths += IGNORE_PATHS
 
     filepaths = list_files(directory)
     for filepath in filepaths:
         relpath = os.path.relpath(filepath, directory)
-        if any([ignore.search(relpath) for ignore in IGNORE_PATHS]):
+        if any([ignore.search(relpath) for ignore in ignore_paths]):
             continue
 
         # this is a naive check to skip binary files, it's probably okay for now
