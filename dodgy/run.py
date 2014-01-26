@@ -1,3 +1,4 @@
+import sys
 import re
 import os
 import mimetypes
@@ -51,7 +52,8 @@ def run_checks(directory, ignore_paths=None):
 
 def run():
     warnings = run_checks(os.getcwd())
-    print json.dumps({'warnings': warnings}, indent=2)
+    output = json.dumps({'warnings': warnings}, indent=2)
+    sys.stdout.write(output + '\n')
 
 
 if __name__ == '__main__':

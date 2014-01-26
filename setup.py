@@ -8,7 +8,7 @@ _packages = find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"])
 _short_description = "Dodgy: Searches for dodgy looking lines in Python code"
 
 _install_requires = [
-    'argparse==1.2.1',
+    'argparse',
 ]
 
 _classifiers = (
