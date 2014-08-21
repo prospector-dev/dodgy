@@ -42,3 +42,6 @@ class TestChecks(TestCase):
         self._do_test('secrets2.py', 'secret')
         self._do_test('secrets3.py', 'secret')
         self._do_test('secrets4.py', None)
+
+    def test_ssh_privatekey(self):
+        self._do_test('ssh_private_key', 'ssh_rsa_private_key')
