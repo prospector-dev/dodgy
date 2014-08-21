@@ -27,6 +27,11 @@ LINE_VALS = (
         'Possible SSH private key',
         re.compile(r'^-{5}(BEGIN|END)\s+RSA\s+PRIVATE\s+KEY-{5}$')
     ),
+    (
+        'ssh_rsa_public_key',
+        'Possible SSH public key',
+        re.compile('^ssh-rsa\s+AAAA[0-9A-Za-z+/]+[=]{0,3}\s*([^@]+@[^@]+)?$')
+    ),
 )
 
 VAR_NAMES = (

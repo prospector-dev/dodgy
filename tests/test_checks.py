@@ -45,3 +45,6 @@ class TestChecks(TestCase):
 
     def test_ssh_privatekey(self):
         self._do_test('ssh_private_key', 'ssh_rsa_private_key')
+
+    def test_ssh_publickey(self):
+        self._do_test('ssh_public_key.pub', 'ssh_rsa_public_key')
