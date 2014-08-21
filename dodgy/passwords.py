@@ -56,15 +56,9 @@ def check_line(line, check_list):
     return messages
 
 
-def check_file(filepath):
-    with open(filepath) as to_check:
-        return check_file_contents(to_check.read())
-
-
-def check_file_contents(file_contents):
+def check_file(_, contents):
     messages = []
-
-    for line_number0, line in enumerate(file_contents.split('\n')):
+    for line_number0, line in enumerate(contents.split('\n')):
         for check_list in (STRING_VALS, LINE_VALS, VAR_NAMES):
             messages += [(line_number0+1, key, msg) for key, msg in check_line(line, check_list)]
 

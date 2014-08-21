@@ -1,13 +1,14 @@
 import os
 from unittest import TestCase
-from dodgy.checks import check_file
+from dodgy.passwords import check_file
 
 
 class TestChecks(TestCase):
 
     def _run_checks(self, file_name):
         filepath = os.path.join(os.path.dirname(__file__), 'testdata', file_name)
-        return check_file(filepath)
+        contents = open(filepath).read()
+        return check_file(filepath, contents)
 
     def _check_messages(self, messages, expected_keys):
         if expected_keys == (None,):
