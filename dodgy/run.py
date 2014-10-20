@@ -6,7 +6,7 @@ import json
 from dodgy.checks import check_file
 
 
-IGNORE_PATHS = [re.compile(patt % {'sep': os.path.sep}) for patt in (
+IGNORE_PATHS = [re.compile(patt % {'sep': re.escape(os.path.sep)}) for patt in (
     r'(^|%(sep)s)\.[^\.]',   # ignores any files or directories starting with '.'
     r'^tests?%(sep)s?',
     r'%(sep)stests?(%(sep)s|$)',
