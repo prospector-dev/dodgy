@@ -7,9 +7,7 @@ _packages = find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"])
 
 _short_description = "Dodgy: Searches for dodgy looking lines in Python code"
 
-_install_requires = [
-    'argparse',
-]
+_install_requires = []
 
 _classifiers = (
     'Development Status :: 2 - Pre-Alpha',
@@ -18,8 +16,9 @@ _classifiers = (
     'License :: OSI Approved :: MIT License',
     'Operating System :: Unix',
     'Topic :: Software Development :: Quality Assurance',
-    'Programming Language :: Python :: 2.6',
     'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3.3',
+    'Programming Language :: Python :: 3.4',
 )
 
 setup(
