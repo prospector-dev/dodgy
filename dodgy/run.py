@@ -10,6 +10,8 @@ IGNORE_PATHS = [re.compile(patt % {'sep': re.escape(os.path.sep)}) for patt in (
     r'(^|%(sep)s)\.[^\.]',   # ignores any files or directories starting with '.'
     r'^tests?%(sep)s?',
     r'%(sep)stests?(%(sep)s|$)',
+    # Ignore foo_test(s)/.
+    r'_tests?(%(sep)s|$)',
 )]
 
 
