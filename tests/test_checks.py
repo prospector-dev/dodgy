@@ -1,4 +1,5 @@
 import os
+import sys
 from unittest import TestCase
 from dodgy.checks import check_file
 
@@ -48,3 +49,10 @@ class TestChecks(TestCase):
 
     def test_ssh_publickey(self):
         self._do_test('ssh_public_key.pub', 'ssh_rsa_public_key')
+
+    def test_bad_unicode(self):
+        """Test that we handle errors during Python 3's required Unicode
+        decoding."""
+        if sys.version_info > (3, 0):
+            self._do_test('bad_utf8.txt', 'unicode_decode_error')
+

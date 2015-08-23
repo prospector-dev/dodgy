@@ -67,8 +67,11 @@ def check_line(line, check_list):
 
 
 def check_file(filepath):
-    with open(filepath) as to_check:
-        return check_file_contents(to_check.read())
+    try:
+        with open(filepath) as to_check:
+            return check_file_contents(to_check.read())
+    except UnicodeDecodeError as e:
+        return [(0, 'unicode_decode_error', str(e))]
 
 
 def check_file_contents(file_contents):
