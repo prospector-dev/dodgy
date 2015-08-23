@@ -40,6 +40,9 @@ def run_checks(directory, ignore_paths=None):
         mimetype = mimetypes.guess_type(filepath)
         if mimetype[0] is None or not mimetype[0].startswith('text/'):
             continue
+        # Also skip anything with an encoding (e.g., a gzipped CSS).
+        if mimetype[1]:
+            continue
 
         for msg_parts in check_file(filepath):
             warnings.append({
