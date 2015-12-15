@@ -1,4 +1,5 @@
 import re
+import codecs
 
 
 STRING_VALS = (
@@ -67,7 +68,7 @@ def check_line(line, check_list):
 
 
 def check_file(filepath):
-    with open(filepath) as to_check:
+    with codecs.open(filepath, 'r', 'utf-8') as to_check:
         return check_file_contents(to_check.read())
 
 
