@@ -31,7 +31,7 @@ LINE_VALS = (
     (
         'ssh_rsa_public_key',
         'Possible SSH public key',
-        re.compile('^ssh-rsa\s+AAAA[0-9A-Za-z+/]+[=]{0,3}\s*([^@]+@[^@]+)?$')
+        re.compile(r'^ssh-rsa\s+AAAA[0-9A-Za-z+/]+[=]{0,3}\s*([^@]+@[^@]+)?$')
     ),
 )
 
@@ -77,6 +77,6 @@ def check_file_contents(file_contents):
 
     for line_number0, line in enumerate(file_contents.split('\n')):
         for check_list in (STRING_VALS, LINE_VALS, VAR_NAMES):
-            messages += [(line_number0+1, key, msg) for key, msg in check_line(line, check_list)]
+            messages += [(line_number0 + 1, key, msg) for key, msg in check_line(line, check_list)]
 
     return messages
