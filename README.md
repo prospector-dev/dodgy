@@ -5,7 +5,7 @@ Dodgy is a very basic tool to run against your codebase to search for "dodgy" lo
 
 While this is primarily aimed at open source projects (for whom a publicly available secret key is pretty dangerous), it can also be used in private projects, with the caveat that it will point out things which are not a problem for private projects and is not configurable enough currently to change that.
 
-Another note - this tool is probably best run pre-commit, since it will hopefully prevent dodgy things being checked in.
+Another note - this tool is probably best run pre-commit, since it will hopefully prevent dodgy things being checked in. To automatically execute before a commit use a git [pre-commit hook](https://git-scm.com/book/gr/v2/Customizing-Git-Git-Hooks)
 
 
 Status
