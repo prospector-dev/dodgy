@@ -11,7 +11,7 @@ Another note - this tool is probably best run pre-commit, since it will hopefull
 Status
 ---
 
-[![Latest Version](https://pypip.in/v/dodgy/badge.png)](https://crate.io/packages/dodgy)
+[![Latest Version](https://img.shields.io/pypi/v/dodgy.svg)](https://crate.io/packages/dodgy)
 [![Build Status](https://travis-ci.org/landscapeio/dodgy.png?branch=master)](https://travis-ci.org/landscapeio/dodgy) 
 [![Code Health](https://landscape.io/github/landscapeio/dodgy/master/landscape.png)](https://landscape.io/github/landscapeio/dodgy/master)
 [![Coverage Status](https://coveralls.io/repos/landscapeio/dodgy/badge.png)](https://coveralls.io/r/landscapeio/dodgy)
