@@ -42,4 +42,4 @@ jobs:
         pip install twine
         # Needs TWINE_USERNAME and TWINE_PASSWORD set as github secrets:
         twine upload dist/*.whl || echo 'Unable to upload to PyPI [code=$?]'
-      if: github.ref == 'master'
+      if: github.ref == 'refs/head/master'
