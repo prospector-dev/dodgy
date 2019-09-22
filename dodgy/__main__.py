@@ -1,3 +1,3 @@
 import dodgy.run
 
-dodgy.run.run()
+dodgy.run.main()

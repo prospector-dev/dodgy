@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        # pip install -r requirements.txt
     - name: Lint with flake8
       run: |
         pip install flake8
@@ -32,3 +32,13 @@ jobs:
       run: |
         pip install pytest
         pytest
+    - name: Create package
+      run: |
+        pip install setuptools wheel
+        python setup.py bdist build bdist_wheel
+    - name: Upload package
+      run: |
+        pip install twine
+        # Needs TWINE_USERNAME and TWINE_PASSWORD set as github secrets:
+        twine upload dist/*.whl || echo 'Unable to upload to PyPI [code=$?]'
+      if: github.ref == 'master'
