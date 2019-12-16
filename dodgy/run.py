@@ -54,8 +54,13 @@ def run_checks(directory, ignore_paths=None):
 
 def run():
     warnings = run_checks(os.getcwd())
-    output = json.dumps({'warnings': warnings}, indent=2)
-    sys.stdout.write(output + '\n')
+
+    if (warnings):
+        output = json.dumps({'warnings': warnings}, indent=2)
+        sys.stdout.write(output + '\n')
+        return 1
+    
+    return 0
 
 
 if __name__ == '__main__':
