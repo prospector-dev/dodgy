@@ -62,18 +62,18 @@ def run_checks(directory, ignore_paths=None):
     return warnings
 
 
-def run(ignore_paths=None):
+def run(ignore_paths=None, zero_exit=False):
     warnings = run_checks(os.getcwd(), ignore_paths=ignore_paths)
 
-    if warnings:
-        output = json.dumps({"warnings": warnings}, indent=2)
-        sys.stdout.write(output + "\n")
-        return 1
+    output = json.dumps({"warnings": warnings}, indent=2)
+    sys.stdout.write(output + "\n")
 
-    return 0
+    if zero_exit:
+        sys.exit(0)
+    sys.exit(1 if warnings else 0)
 
-
-def main(argv=sys.argv):
+def main(argv=None):
+    argv = argv or sys.argv
     desc = (
         'A very basic tool to run against your codebase to search for "dodgy" looking values. '
         "It is a series of simple regular expressions designed to detect things such as "
@@ -90,10 +90,17 @@ def main(argv=sys.argv):
         metavar="IGNORE_PATH",
         help="Paths to ignore",
     )
+    parser.add_argument(
+        "--zero-exit",
+        "-0",
+        dest="zero_exit",
+        help="Dodgy will exit with a code of 1 if problems are found. This flag ensures that it always returns with 0 unless an exception is raised.",
+        action="store_true",
+    )
+
     args, _ = parser.parse_known_args(argv)
 
-    run(ignore_paths=args.ignore)
-
+    run(ignore_paths=args.ignore, zero_exit=args.zero_exit)
 
 if __name__ == "__main__":
     main()
