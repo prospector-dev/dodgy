@@ -33,7 +33,3 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
-
-# local dev convenience
-env.txt
-.env

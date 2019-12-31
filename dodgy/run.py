@@ -1,21 +1,18 @@
-import json
-import mimetypes
-import os
-import re
 import sys
-
+import re
+import os
+import mimetypes
+import json
 from dodgy.checks import check_file
 
-IGNORE_PATHS = [
-    re.compile(patt % {"sep": re.escape(os.path.sep)})
-    for patt in (
-        r"(^|%(sep)s)\.[^\.]",  # ignores any files or directories starting with '.'
-        r"^tests?%(sep)s?",
-        r"%(sep)stests?(%(sep)s|$)",
-        # Ignore foo_test(s)/.
-        r"_tests?(%(sep)s|$)",
-    )
-]
+
+IGNORE_PATHS = [re.compile(patt % {'sep': re.escape(os.path.sep)}) for patt in (
+    r'(^|%(sep)s)\.[^\.]',   # ignores any files or directories starting with '.'
+    r'^tests?%(sep)s?',
+    r'%(sep)stests?(%(sep)s|$)',
+    # Ignore foo_test(s)/.
+    r'_tests?(%(sep)s|$)',
+)]
 
 
 def list_files(start_path):
@@ -41,27 +38,25 @@ def run_checks(directory, ignore_paths=None):
 
         # this is a naive check to skip binary files, it's probably okay for now
         mimetype = mimetypes.guess_type(filepath)
-        if mimetype[0] is None or not mimetype[0].startswith("text/"):
+        if mimetype[0] is None or not mimetype[0].startswith('text/'):
             continue
 
         for msg_parts in check_file(filepath):
-            warnings.append(
-                {
-                    "path": relpath,
-                    "line": msg_parts[0],
-                    "code": msg_parts[1],
-                    "message": msg_parts[2],
-                }
-            )
+            warnings.append({
+                'path': relpath,
+                'line': msg_parts[0],
+                'code': msg_parts[1],
+                'message': msg_parts[2]
+            })
 
     return warnings
 
 
 def run():
     warnings = run_checks(os.getcwd())
-    output = json.dumps({"warnings": warnings}, indent=2)
-    sys.stdout.write(output + "\n")
+    output = json.dumps({'warnings': warnings}, indent=2)
+    sys.stdout.write(output + '\n')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     run()
