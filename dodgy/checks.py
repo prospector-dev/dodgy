@@ -1,5 +1,8 @@
 import re
 import codecs
+import gzip
+
+from functools import partial
 
 
 STRING_VALS = (
@@ -68,7 +71,13 @@ def check_line(line, check_list):
 
 
 def check_file(filepath):
-    with codecs.open(filepath, 'r', 'utf-8') as to_check:
+    if filepath.endswith('.gz'):
+        # this file looks like it is using gzip compression
+        fopen = partial(gzip.open, mode='rt')
+    else:
+        # otherwise treat as standard text file
+        fopen = partial(codecs.open, mode='r')
+    with fopen(filepath, encoding='utf-8') as to_check:
         return check_file_contents(to_check.read())
 
 
@@ -77,6 +86,7 @@ def check_file_contents(file_contents):
 
     for line_number0, line in enumerate(file_contents.split('\n')):
         for check_list in (STRING_VALS, LINE_VALS, VAR_NAMES):
-            messages += [(line_number0 + 1, key, msg) for key, msg in check_line(line, check_list)]
+            messages += [(line_number0 + 1, key, msg)
+                         for key, msg in check_line(line, check_list)]
 
     return messages
