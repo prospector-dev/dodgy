@@ -3,10 +3,14 @@ import re
 import os
 import mimetypes
 import json
+
+from argparse import ArgumentParser
+
 from dodgy.checks import check_file
 
 
-IGNORE_PATHS = [re.compile(patt % {'sep': re.escape(os.path.sep)}) for patt in (
+IGNORE_PATHS = [re.compile(patt % {'sep': re.escape(os.path.sep)})
+                for patt in (
     r'(^|%(sep)s)\.[^\.]',   # ignores any files or directories starting with '.'
     r'^tests?%(sep)s?',
     r'%(sep)stests?(%(sep)s|$)',
@@ -41,22 +45,43 @@ def run_checks(directory, ignore_paths=None):
         if mimetype[0] is None or not mimetype[0].startswith('text/'):
             continue
 
-        for msg_parts in check_file(filepath):
-            warnings.append({
-                'path': relpath,
-                'line': msg_parts[0],
-                'code': msg_parts[1],
-                'message': msg_parts[2]
-            })
+        try:
+            for msg_parts in check_file(filepath):
+                warnings.append({
+                    'path': relpath,
+                    'line': msg_parts[0],
+                    'code': msg_parts[1],
+                    'message': msg_parts[2]
+                })
+        except UnicodeDecodeError as err:
+            # This is a file which cannot be opened using codecs with UTF-8
+            print('Unable to read {!r}: {}'.format(filepath, err))
 
     return warnings
 
 
-def run():
-    warnings = run_checks(os.getcwd())
-    output = json.dumps({'warnings': warnings}, indent=2)
-    sys.stdout.write(output + '\n')
+def run(ignore_paths=None):
+    warnings = run_checks(os.getcwd(), ignore_paths=ignore_paths)
+
+    if (warnings):
+        output = json.dumps({'warnings': warnings}, indent=2)
+        sys.stdout.write(output + '\n')
+        return 1
+    
+    return 0
+
+def main(argv=sys.argv):
+    desc = ('A very basic tool to run against your codebase to search for "dodgy" looking values. '
+            'It is a series of simple regular expressions designed to detect things such as '
+            'accidental SCM diff checkins, or passwords/secret keys hardcoded into files.')
+    parser = ArgumentParser('dodgy', description=desc)
+    parser.add_argument('--ignore-paths', '-i', nargs='+',
+                        type=str, dest='ignore', default=None,
+                        metavar='IGNORE_PATH', help='Paths to ignore')
+    args, _ = parser.parse_known_args(argv)
+
+    run(ignore_paths=args.ignore)
 
 
 if __name__ == '__main__':
-    run()
+    main()
