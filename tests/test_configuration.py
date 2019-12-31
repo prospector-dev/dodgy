@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 from dodgy.configuration import get_options
 
 

@@ -1,6 +1,7 @@
 from unittest import TestCase
-from mock import patch
+
 from dodgy.run import run
+from mock import patch
 
 
 class TestRun(TestCase):

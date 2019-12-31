@@ -6,7 +6,7 @@ def get_options(argv=None):
     parser.add_argument(
         "--zero-exit",
         help="Dodgy will exit with a code of 1 if problems are found",
-        action="store_true"
+        action="store_true",
     )
 
     return parser.parse_args(argv)
