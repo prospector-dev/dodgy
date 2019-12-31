@@ -62,9 +62,13 @@ def run_checks(directory, ignore_paths=None):
 
 def run(ignore_paths=None):
     warnings = run_checks(os.getcwd(), ignore_paths=ignore_paths)
-    output = json.dumps({'warnings': warnings}, indent=2)
-    sys.stdout.write(output + '\n')
 
+    if (warnings):
+        output = json.dumps({'warnings': warnings}, indent=2)
+        sys.stdout.write(output + '\n')
+        return 1
+    
+    return 0
 
 def main(argv=sys.argv):
     desc = ('A very basic tool to run against your codebase to search for "dodgy" looking values. '
