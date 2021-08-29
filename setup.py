@@ -1,7 +1,5 @@
 # -*- coding: UTF-8 -*-
-from distutils.core import setup
-
-from setuptools import find_packages
+from setuptools import find_packages, setup
 
 from dodgy import __pkginfo__
 
